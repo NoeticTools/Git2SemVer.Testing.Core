@@ -8,11 +8,6 @@
     <NoWarn>NU5100;NU1803</NoWarn>
   </PropertyGroup>
 
-  <PropertyGroup>
-    <Version>0.1.0</Version>
-    <PackageVersion>0.1.0-alpha.2</PackageVersion>
-  </PropertyGroup>
-
   <PropertyGroup Label="NuGet">
     <Title>Core library for Git2SemVer Semmantic Versioning packages.</Title>
     <Description></Description>
@@ -49,6 +44,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="JsonPeek" Version="1.2.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageReference Include="NoeticTools.Git2SemVer.Core" Version="1.0.0" />
     <PackageReference Include="NUnit" Version="4.2.2" />
@@ -62,5 +58,41 @@
   <ItemGroup>
     <Using Include="NUnit.Framework" />
   </ItemGroup>
+
+  <!-- Ensure that the Git2SemVer version information JSON file is available.  -->
+  <Target Name="Git2SemVerEnsureVersionInfoBuilt" Condition="'$(MSBuildProjectName)' != '$(Git2SemVer_VersioningProjectName)'" AfterTargets="PrepareResources" BeforeTargets="CoreBuild;Build;Pack;GetAssemblyVersion">
+
+    <PropertyGroup>
+      <SharedPropsFileExists Condition="Exists($(Git2SemVer_SharedVersioningJsonFile))">true</SharedPropsFileExists>
+      <SharedPropsFileExists Condition="'$(SharedPropsFileExists)' == ''">false</SharedPropsFileExists>
+    </PropertyGroup>
+
+    <Message Text="Git2SemVer: Generating versioning information." Importance="high" Condition=" '$(SharedPropsFileExists)' == 'false' " />
+
+    <MSBuild Projects="$(Git2SemVer_VersioningProjectPath)" Condition=" '$(SharedPropsFileExists)' == 'false' " />
+
+  </Target>
+
+  <!-- Load generated versioning information -->
+  <Target Name="Git2SemVerLoadVersionInformation" Condition="'$(MSBuildProjectName)' != '$(Git2SemVer_VersioningProjectName)'" DependsOnTargets="Git2SemVerEnsureVersionInfoBuilt" AfterTargets="PrepareResources" BeforeTargets="CoreBuild;Build;Pack;GetAssemblyVersion">
+
+    <Message Text="Git2SemVer: Loading versioning information." Importance="normal" />
+
+    <!-- ReSharper disable once UnknownTask -->
+    <JsonPeek ContentPath="$(Git2SemVer_SharedVersioningJsonFile)" Query="$.Git2SemVerVersionInfo">
+      <Output TaskParameter="Result" ItemName="Git2SemVerVersionInfo" />
+    </JsonPeek>
+
+    <PropertyGroup>
+      <Version>@(Git2SemVerVersionInfo -> '%(Version)')</Version>
+      <VersionPrefix>@(Git2SemVerVersionInfo -> '%(VersionPrefix)')</VersionPrefix>
+      <VersionSuffix>@(Git2SemVerVersionInfo -> '%(VersionSuffix)')</VersionSuffix>
+      <PackageVersion>@(Git2SemVerVersionInfo -> '%(PackageVersion)')</PackageVersion>
+      <InformationalVersion>@(Git2SemVerVersionInfo -> '%(InformationalVersion)')</InformationalVersion>
+      <AssemblyVersion>@(Git2SemVerVersionInfo -> '%(AssemblyVersion)')</AssemblyVersion>
+      <FileVersion>@(Git2SemVerVersionInfo -> '%(FileVersion)')</FileVersion>
+    </PropertyGroup>
+
+  </Target>
 
 </Project>
