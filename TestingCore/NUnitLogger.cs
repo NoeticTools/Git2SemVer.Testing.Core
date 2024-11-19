@@ -1,7 +1,7 @@
 ﻿using NoeticTools.Common.Logging;
 
 
-namespace NoeticTools.Testing.Common;
+namespace NoeticTools.Git2SemVer.Testing.Core;
 
 /// <summary>
 ///     Logger to log to NUnit's TestContext.

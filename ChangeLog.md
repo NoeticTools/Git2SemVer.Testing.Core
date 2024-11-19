@@ -1,4 +1,4 @@
-# Git2SemVer.Common Changelog
+# Git2SemVer.Testing.Core Changelog
 
 All notable changes to this project will be documented in this file.
 
@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ----
 
-## 1.0.0 - _November 7, 2024_
+## 1.0.0 - _November 19, 2024_
 
 First release.
 

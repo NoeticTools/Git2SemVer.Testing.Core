@@ -21,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Testing.Core", "TestingCore\Testing.Core.csproj", "{18949630-E6E6-43CC-9DD4-2039392B883B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Git2SemVer.Testing.Core", "TestingCore\Git2SemVer.Testing.Core.csproj", "{18949630-E6E6-43CC-9DD4-2039392B883B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

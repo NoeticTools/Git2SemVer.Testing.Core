@@ -1,6 +1,6 @@
-# GitSemVer.Core
+# NoeticTools.GitSemVer.Testing.Core
 
-Core library used by:
+Testing core library used by:
 
 * [Git2SemVer.MSBuild](https://noetictools.github.io/Git2SemVer.MSBuild/)
 * [Git2SemVer.Tool](https://noetictools.github.io/Git2SemVer.MSBuild/)

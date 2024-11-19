@@ -1,4 +1,4 @@
-﻿# NoeticTools.Testing.Core
+﻿# NoeticTools.Git2SemVer.Testing.Core
 
 Testing core library used by:
 
