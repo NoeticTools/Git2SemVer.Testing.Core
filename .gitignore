@@ -1,0 +1,14 @@
+################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+bin
+obj
+.vs
+nupkg
+/Git2SemVer.Core.sln.DotSettings.user
+
+# Generated version properties file
+.git2semver/Git2SemVer.VersionInfo.g.json
+/SolutionVersioningProject/.git2semver/Git2SemVer.VersionInfo.g.json
+/SolutionVersioningProject/.git2semver/Git2SemVer.VersionInfo.g.props

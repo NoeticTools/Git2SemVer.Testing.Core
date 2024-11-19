@@ -1,0 +1,22 @@
+<Project>
+
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>NoeticTools.$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <AssemblyName>NoeticTools.$(MSBuildProjectName)</AssemblyName>
+  </PropertyGroup>
+
+  <!-- NuGet package properties -->
+  <PropertyGroup>
+    <Authors>RobSmyth</Authors>
+    <RepositoryUrl>https://github.com/NoeticTools/Git2SemVer.Core</RepositoryUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Copyright>Copyright (c) RobSmyth $([System.DateTime]::Now.Year)</Copyright>
+    <NoWarn>NU5100;NU1803;NU5128</NoWarn>
+  </PropertyGroup>
+
+  <Import Project="Directory.Versioning.Build.props"/>
+
+</Project>
