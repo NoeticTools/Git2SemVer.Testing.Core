@@ -24,7 +24,7 @@ public static class TestDirectoryResource
         var contextId = _nextContextId++;
         var testFolderName = $"{currentContext.CurrentTest.MethodName}.TestFolder{contextId}";
         var testFolderPath = Path.Combine(TestContext.CurrentContext.TestDirectory, testFolderName);
-        Assert.That(testFolderPath, Does.Not.Exist, "The test directory '{0}' already exists.", testFolderPath);
+        Assert.That(testFolderPath, Does.Not.Exist, $"The test directory '{testFolderPath}' already exists.");
         directory = Directory.CreateDirectory(testFolderPath);
 
         if (!ResourceByTestContext.TryAdd(currentContext, directory))
