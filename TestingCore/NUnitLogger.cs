@@ -1,4 +1,4 @@
-﻿using NoeticTools.Common.Logging;
+﻿using NoeticTools.Git2SemVer.Core.Logging;
 
 
 namespace NoeticTools.Git2SemVer.Testing.Core;
