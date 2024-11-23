@@ -1,6 +1,7 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using NUnit.Framework.Internal;
+// ReSharper disable ConvertToPrimaryConstructor
 
 
 namespace NoeticTools.Git2SemVer.Testing.Core;
@@ -8,12 +9,19 @@ namespace NoeticTools.Git2SemVer.Testing.Core;
 /// <summary>
 ///     Manage the creation and release of directories used by concurrent test cases.
 /// </summary>
-public static class TestDirectoryResource
+public class TestDirectoryResource : IDisposable
 {
+    private readonly string _groupName;
     private static readonly ConcurrentDictionary<TestExecutionContext, DirectoryInfo> ResourceByTestContext = [];
     private static int _nextContextId;
+    private bool _disposed;
 
-    public static DirectoryInfo Get()
+    public TestDirectoryResource(string groupName)
+    {
+        _groupName = groupName;
+    }
+
+    public DirectoryInfo Create()
     {
         var currentContext = TestExecutionContext.CurrentContext;
         if (ResourceByTestContext.TryGetValue(currentContext, out var directory))
@@ -22,7 +30,7 @@ public static class TestDirectoryResource
         }
 
         var contextId = _nextContextId++;
-        var testFolderName = $"{currentContext.CurrentTest.MethodName}.TestFolder{contextId}";
+        var testFolderName = $"TestFolder_{_groupName}_{contextId}";
         var testFolderPath = Path.Combine(TestContext.CurrentContext.TestDirectory, testFolderName);
         Assert.That(testFolderPath, Does.Not.Exist, $"The test directory '{testFolderPath}' already exists.");
         directory = Directory.CreateDirectory(testFolderPath);
@@ -35,8 +43,15 @@ public static class TestDirectoryResource
         return directory;
     }
 
-    public static void Release()
+    public void Dispose()
     {
+        if (_disposed)
+        {
+            return;
+        }
+
+        _disposed = true;
+
         var currentContext = TestExecutionContext.CurrentContext;
         if (!ResourceByTestContext.Remove(currentContext, out var directory))
         {
