@@ -58,10 +58,30 @@ public class TestDirectoryResource : IDisposable
             Assert.Fail("Context does not have a test directory to release.");
         }
 
-        directory!.Delete(true);
-        if (!TestHelper.WaitUntil(() => !directory.Exists))
+        var stopwatch = Stopwatch.StartNew();
+        var timeLimit = TimeSpan.FromSeconds(10);
+        while (stopwatch.Elapsed < timeLimit)
         {
-            Assert.Fail($"Unable to release a {directory.FullName}.");
+            try
+            {
+                directory!.Delete(true);
+                break;
+            }
+            catch (IOException)
+            {
+                Thread.Sleep(10);
+            }
+        }
+
+        stopwatch.Stop();
+        if (stopwatch.Elapsed >= timeLimit)
+        {
+            Assert.Fail($"Unable to delete test directory {directory} due to IOException.");
+        }
+
+        if (!TestHelper.WaitUntil(() => !directory!.Exists))
+        {
+            Assert.Fail($"Unable to release a {directory!.FullName}.");
         }
     }
 }
