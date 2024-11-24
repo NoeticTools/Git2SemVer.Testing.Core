@@ -47,11 +47,11 @@ jobs:
       run: |
           dotnet test --verbosity normal --configuration Release --no-build
 
-    - name: Archive Git2SemVer.Common NuGet package
+    - name: Archive Git2SemVer.Testing.Core NuGet package
       uses: actions/upload-artifact@v4
       with:
-        name: Git2SemVer.Common.nupkg (github run ${{ github.run_number }}.${{ github.run_attempt }})
-        path: Common/nupkg/*.nupkg
+        name: Git2SemVer.Testing.Core.nupkg (github run ${{ github.run_number }}.${{ github.run_attempt }})
+        path: TestingCore/nupkg/*.nupkg
         compression-level: 0
         if-no-files-found: error
 
