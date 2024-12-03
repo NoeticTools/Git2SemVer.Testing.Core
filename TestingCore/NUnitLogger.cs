@@ -142,7 +142,6 @@ public class NUnitLogger : ILogger
         {
             return;
         }
-
         LogTrace(messageGenerator());
     }
 
