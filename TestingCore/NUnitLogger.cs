@@ -77,6 +77,7 @@ public class NUnitLogger : ILogger
         {
             return;
         }
+
         LogDebug(messageGenerator());
     }
 
@@ -141,6 +142,7 @@ public class NUnitLogger : ILogger
         {
             return;
         }
+
         LogTrace(messageGenerator());
     }
 

@@ -1,8 +1,9 @@
 using System.Collections.Concurrent;
 using System.Diagnostics;
 using NUnit.Framework.Internal;
-// ReSharper disable ConvertToPrimaryConstructor
 
+
+// ReSharper disable ConvertToPrimaryConstructor
 
 namespace NoeticTools.Git2SemVer.Testing.Core;
 
@@ -11,9 +12,9 @@ namespace NoeticTools.Git2SemVer.Testing.Core;
 /// </summary>
 public class TestDirectoryResource : IDisposable
 {
-    private readonly string _groupName;
     private static readonly ConcurrentDictionary<TestExecutionContext, DirectoryInfo> ResourceByTestContext = [];
     private static int _nextContextId;
+    private readonly string _groupName;
     private bool _disposed;
 
     public TestDirectoryResource(string groupName)
