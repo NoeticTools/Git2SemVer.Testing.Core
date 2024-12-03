@@ -71,6 +71,15 @@ public class NUnitLogger : ILogger
         }
     }
 
+    public void LogDebug(Func<string> messageGenerator)
+    {
+        if (Level < LoggingLevel.Debug)
+        {
+            return;
+        }
+        LogDebug(messageGenerator());
+    }
+
     public void LogDebug(string message, params object[] messageArgs)
     {
         LogDebug(string.Format(message, messageArgs));
@@ -109,7 +118,7 @@ public class NUnitLogger : ILogger
     {
         if (Level >= LoggingLevel.Info)
         {
-            TestContext.Out.WriteLine(_infoPrefix + LogPrefix + message); //>>>
+            TestContext.Out.WriteLine(_infoPrefix + LogPrefix + message);
         }
     }
 
@@ -124,6 +133,15 @@ public class NUnitLogger : ILogger
         {
             TestContext.Out.WriteLine(_tracePrefix + LogPrefix + message);
         }
+    }
+
+    public void LogTrace(Func<string> messageGenerator)
+    {
+        if (Level < LoggingLevel.Trace)
+        {
+            return;
+        }
+        LogTrace(messageGenerator());
     }
 
     public void LogTrace(string message, params object[] messageArgs)
